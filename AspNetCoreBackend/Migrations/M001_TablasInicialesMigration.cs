@@ -2,11 +2,12 @@
 
 namespace AspNetCoreBackend.Migrations
 {
-    [Migration(1)]
+    [Migration(001)]
     public class TablasInicialesMigration : Migration
     {
         public override void Up()
         {
+            // Los Script se guardan /Migrations/Scripts y se deben marcar con la propiedad 'Build Action' : Embbeded Resource
             Execute.EmbeddedScript("M001_TablasIniciales_Up.sql");
         }
 

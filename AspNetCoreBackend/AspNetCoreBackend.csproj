@@ -7,10 +7,22 @@
   <ItemGroup>
     <None Remove="Migrations\Scripts\M001_TablasIniciales_Down.sql" />
     <None Remove="Migrations\Scripts\M001_TablasIniciales_Up.sql" />
+    <None Remove="Migrations\Scripts\M002_ContenidoTablasTIpo_Down.sql" />
+    <None Remove="Migrations\Scripts\M002_ContenidoTablasTIpo_Up.sql" />
+    <None Remove="Migrations\Scripts\M003_RegionesProvinciasComunas_Down.sql" />
+    <None Remove="Migrations\Scripts\M003_RegionesProvinciasComunas_Up.sql" />
+    <None Remove="Migrations\Scripts\M004_PersonasUsuarios_Down.sql" />
+    <None Remove="Migrations\Scripts\M004_PersonasUsuarios_Up.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Migrations\Scripts\M001_TablasIniciales_Down.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M002_ContenidoTablasTipo_Down.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M004_PersonasUsuarios_Up.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M004_PersonasUsuarios_Down.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M003_RegionesProvinciasComunas_Down.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M003_RegionesProvinciasComunas_Up.sql" />
+    <EmbeddedResource Include="Migrations\Scripts\M002_ContenidoTablasTipo_Up.sql" />
   </ItemGroup>
 
   <ItemGroup>

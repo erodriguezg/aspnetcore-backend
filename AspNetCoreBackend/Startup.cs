@@ -23,10 +23,15 @@ namespace AspNetCoreBackend
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //FLUENT MIGRATIONS
 
-            //fluentmigrations
-
-            var serviceProvider = CreateServices(Configuration.GetValue<string>("DBInfo:ConnectionString"));
+            var serviceProvider = services.AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                    .AddPostgres()
+                    .WithGlobalConnectionString(Configuration.GetValue<string>("DBInfo:ConnectionString"))
+                    .ScanIn(Assembly.GetExecutingAssembly()).For.All())
+                .AddLogging(lb => lb.AddFluentMigratorConsole())
+                .BuildServiceProvider(false);
 
             // Put the database update into a scope to ensure
             // that all resources will be disposed.
@@ -49,28 +54,8 @@ namespace AspNetCoreBackend
                 app.UseHsts();
             }
 
-
-            
-
             app.UseHttpsRedirection();
             app.UseMvc();
-        }
-
-
-
-        /// <summary>
-        /// Configure the dependency injection services
-        /// </sumamry>
-        private static IServiceProvider CreateServices(string connectionString)
-        {
-            return new ServiceCollection()
-                .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    .AddPostgres()
-                    .WithGlobalConnectionString(connectionString)
-                    .ScanIn(Assembly.GetExecutingAssembly()).For.All())
-                .AddLogging(lb => lb.AddFluentMigratorConsole())
-                .BuildServiceProvider(false);
         }
 
         /// <summary>
