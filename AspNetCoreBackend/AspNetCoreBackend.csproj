@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json.plantilla" />
     <None Remove="Migrations\Scripts\M001_TablasIniciales_Down.sql" />
     <None Remove="Migrations\Scripts\M001_TablasIniciales_Up.sql" />
     <None Remove="Migrations\Scripts\M002_ContenidoTablasTIpo_Down.sql" />
@@ -13,6 +14,18 @@
     <None Remove="Migrations\Scripts\M003_RegionesProvinciasComunas_Up.sql" />
     <None Remove="Migrations\Scripts\M004_PersonasUsuarios_Down.sql" />
     <None Remove="Migrations\Scripts\M004_PersonasUsuarios_Up.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Entities\DatabaseGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DatabaseGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json.plantilla" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +59,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Entities\DatabaseGenerator.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DatabaseGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -58,6 +76,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DataModels\DatabaseGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DatabaseGenerator.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Entities\DatabaseGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DatabaseGenerator.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
 </Project>
