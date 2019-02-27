@@ -1,4 +1,6 @@
-﻿using FluentMigrator.Runner;
+﻿using AspNetCoreBackend.Config;
+using FluentMigrator.Runner;
+using LinqToDB.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,7 @@ namespace AspNetCoreBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetValue<string>("DBInfo:ConnectionString");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //FLUENT MIGRATIONS
@@ -28,7 +31,7 @@ namespace AspNetCoreBackend
             var serviceProvider = services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
-                    .WithGlobalConnectionString(Configuration.GetValue<string>("DBInfo:ConnectionString"))
+                    .WithGlobalConnectionString(connectionString)
                     .ScanIn(Assembly.GetExecutingAssembly()).For.All())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
@@ -40,6 +43,8 @@ namespace AspNetCoreBackend
                 UpdateDatabase(scope.ServiceProvider);
             }
 
+            // LINQ2DB SETTINGS
+            DataConnection.DefaultSettings = new AppLinq2DBSettings(connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

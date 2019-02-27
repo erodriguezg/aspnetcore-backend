@@ -43,9 +43,9 @@
 	NamespaceName = "AspNetCoreBackend.Entities";
 	DataContextName = "AspNetCoreBackendDb";
 	IncludeDefaultSchema = false;
-
-	//LoadPostgreSQLMetadata("localhost", "5432", "aspnetcorebackend", "postgres", "postgres");
-	LoadPostgreSQLMetadata("DBInfo.ConnectionString");
+	
+	LoadPostgreSQLMetadata("localhost", "5432", "aspnetcorebackend", "postgres", "postgres");
+	//LoadPostgreSQLMetadata("DBInfo.ConnectionString");
 
 	GetTable("regiones").TypeName  = "region";
 	GetTable("perfiles_usuarios").TypeName  = "PerfilUsuario";
