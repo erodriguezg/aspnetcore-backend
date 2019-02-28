@@ -21,29 +21,28 @@ namespace AspNetCoreBackend.Entities
 	/// <summary>
 	/// Database       : aspnetcorebackend
 	/// Data Source    : tcp://localhost:5432
-	/// Server Version : 9.6.1
+	/// Server Version : 9.6.2
 	/// </summary>
-	public partial class AspNetCoreBackendDb : LinqToDB.Data.DataConnection
+	public partial class LinqToDbDataContext : LinqToDB.Data.DataConnection
 	{
 		public ITable<Comuna>        Comunas          { get { return this.GetTable<Comuna>(); } }
 		public ITable<PerfilUsuario> PerfilesUsuarios { get { return this.GetTable<PerfilUsuario>(); } }
 		public ITable<Persona>       Personas         { get { return this.GetTable<Persona>(); } }
 		public ITable<Provincia>     Provincias       { get { return this.GetTable<Provincia>(); } }
-		public ITable<region>        Regiones         { get { return this.GetTable<region>(); } }
+		public ITable<Region>        Regiones         { get { return this.GetTable<Region>(); } }
 		public ITable<Usuario>       Usuarios         { get { return this.GetTable<Usuario>(); } }
-		public ITable<VersionInfo>   VersionInfo      { get { return this.GetTable<VersionInfo>(); } }
 
 		partial void InitMappingSchema()
 		{
 		}
 
-		public AspNetCoreBackendDb()
+		public LinqToDbDataContext()
 		{
 			InitDataContext();
 			InitMappingSchema();
 		}
 
-		public AspNetCoreBackendDb(string configuration)
+		public LinqToDbDataContext(string configuration)
 			: base(configuration)
 		{
 			InitDataContext();
@@ -55,7 +54,7 @@ namespace AspNetCoreBackend.Entities
 	}
 
 	[Table("comunas")]
-	public partial class Comuna
+	public partial class Comuna : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_comuna"),    PrimaryKey,  NotNull] public int    IdComuna    { get; set; } // integer
 		[Column("id_provincia"),    Nullable         ] public int?   IdProvincia { get; set; } // integer
@@ -79,7 +78,7 @@ namespace AspNetCoreBackend.Entities
 	}
 
 	[Table("perfiles_usuarios")]
-	public partial class PerfilUsuario
+	public partial class PerfilUsuario : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_perfil_usuario"), PrimaryKey, NotNull] public int    IdPerfilUsuario { get; set; } // integer
 		[Column("nombre"),                        NotNull] public string Nombre          { get; set; } // character varying(100)
@@ -96,7 +95,7 @@ namespace AspNetCoreBackend.Entities
 	}
 
 	[Table("personas")]
-	public partial class Persona
+	public partial class Persona : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_persona"),       PrimaryKey,  Identity] public long        IdPersona       { get; set; } // bigint
 		[Column("id_comuna"),           Nullable          ] public int?        IdComuna        { get; set; } // integer
@@ -126,7 +125,7 @@ namespace AspNetCoreBackend.Entities
 	}
 
 	[Table("provincias")]
-	public partial class Provincia
+	public partial class Provincia : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_provincia"), PrimaryKey,  NotNull] public int    IdProvincia { get; set; } // integer
 		[Column("id_region"),       Nullable         ] public int?   IdRegion    { get; set; } // integer
@@ -144,13 +143,13 @@ namespace AspNetCoreBackend.Entities
 		/// fk_provinci_reference_region
 		/// </summary>
 		[Association(ThisKey="IdRegion", OtherKey="IdRegion", CanBeNull=true, Relationship=Relationship.ManyToOne, KeyName="fk_provinci_reference_region", BackReferenceName="Fkprovincireferenceregions")]
-		public region Fkprovincireferenceregion { get; set; }
+		public Region Fkprovincireferenceregion { get; set; }
 
 		#endregion
 	}
 
 	[Table("regiones")]
-	public partial class region
+	public partial class Region : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_region"), PrimaryKey, NotNull] public int    IdRegion { get; set; } // integer
 		[Column("nombre"),                NotNull] public string Nombre   { get; set; } // character varying(100)
@@ -167,7 +166,7 @@ namespace AspNetCoreBackend.Entities
 	}
 
 	[Table("usuarios")]
-	public partial class Usuario
+	public partial class Usuario : AspNetCoreBackend.Entities.IBaseEntity
 	{
 		[Column("id_persona"),        PrimaryKey,  NotNull] public long   IdPersona       { get; set; } // bigint
 		[Column("id_perfil_usuario"),              NotNull] public int    IdPerfilUsuario { get; set; } // integer
@@ -190,14 +189,6 @@ namespace AspNetCoreBackend.Entities
 		public Persona Fkreferencepersona { get; set; }
 
 		#endregion
-	}
-
-	[Table("VersionInfo")]
-	public partial class VersionInfo
-	{
-		[Column, NotNull    ] public long      Version     { get; set; } // bigint
-		[Column,    Nullable] public DateTime? AppliedOn   { get; set; } // timestamp (6) without time zone
-		[Column,    Nullable] public string    Description { get; set; } // character varying(1024)
 	}
 
 	public static partial class TableExtensions
@@ -226,7 +217,7 @@ namespace AspNetCoreBackend.Entities
 				t.IdProvincia == IdProvincia);
 		}
 
-		public static region Find(this ITable<region> table, int IdRegion)
+		public static Region Find(this ITable<Region> table, int IdRegion)
 		{
 			return table.FirstOrDefault(t =>
 				t.IdRegion == IdRegion);

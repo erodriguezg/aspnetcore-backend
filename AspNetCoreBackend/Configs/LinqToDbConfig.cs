@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCoreBackend.Config
+namespace AspNetCoreBackend.Configs
 {
     public class AppLinq2DBSettings : ILinqToDBSettings
     {
         private readonly string _connectionString;
-        private readonly string _defaultConfiguration = "PostgreSql";
-        private readonly string _defaultDataProvider = "PostgreSql";
+        public const string DEFAULT_CONFIGURATION = "AppDB";
+        public const string DEFAULT_DATA_PROVIDER = "PostgreSQL";
 
         public AppLinq2DBSettings(string connectionString)
         {
@@ -17,9 +17,9 @@ namespace AspNetCoreBackend.Config
 
         public IEnumerable<IDataProviderSettings> DataProviders => Enumerable.Empty<IDataProviderSettings>();
 
-        public string DefaultConfiguration => _defaultConfiguration;
+        public string DefaultConfiguration => DEFAULT_CONFIGURATION;
 
-        public string DefaultDataProvider => _defaultDataProvider;
+        public string DefaultDataProvider => DEFAULT_DATA_PROVIDER;
 
         public IEnumerable<IConnectionStringSettings> ConnectionStrings
         {
@@ -28,8 +28,8 @@ namespace AspNetCoreBackend.Config
                 yield return
                     new ConnectionStringSettings
                     {
-                        Name = _defaultConfiguration,
-                        ProviderName = _defaultDataProvider,
+                        Name = DEFAULT_CONFIGURATION,
+                        ProviderName = DEFAULT_DATA_PROVIDER,
                         ConnectionString = this._connectionString
                     };
             }

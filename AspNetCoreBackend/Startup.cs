@@ -1,4 +1,4 @@
-﻿using AspNetCoreBackend.Config;
+﻿using AspNetCoreBackend.Configs;
 using FluentMigrator.Runner;
 using LinqToDB.Data;
 using Microsoft.AspNetCore.Builder;

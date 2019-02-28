@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNetCoreBackend.Entities;
+using AspNetCoreBackend.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace AspNetCoreBackend.Controllers
 {
@@ -12,9 +12,11 @@ namespace AspNetCoreBackend.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Region>> Get()
         {
-            return new string[] { "value1", "value2" };
+            RegionRepository regionRepository = new RegionRepository();
+            var regiones = regionRepository.FindAll();
+            return Ok(regiones);
         }
 
         // GET api/values/5

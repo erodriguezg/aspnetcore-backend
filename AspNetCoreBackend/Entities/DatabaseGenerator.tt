@@ -41,13 +41,14 @@
 
 	GetSchemaOptions.IncludedSchemas = new string[] {"public"};
 	NamespaceName = "AspNetCoreBackend.Entities";
-	DataContextName = "AspNetCoreBackendDb";
+	DataContextName = "LinqToDbDataContext";
 	IncludeDefaultSchema = false;
+	BaseEntityClass = "AspNetCoreBackend.Entities.IBaseEntity";
 	
 	LoadPostgreSQLMetadata("localhost", "5432", "aspnetcorebackend", "postgres", "postgres");
 	//LoadPostgreSQLMetadata("DBInfo.ConnectionString");
 
-	GetTable("regiones").TypeName  = "region";
+	GetTable("regiones").TypeName  = "Region";
 	GetTable("perfiles_usuarios").TypeName  = "PerfilUsuario";
 
 	GenerateModel();
