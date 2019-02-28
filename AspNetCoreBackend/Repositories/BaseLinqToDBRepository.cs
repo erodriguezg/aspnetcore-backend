@@ -10,7 +10,9 @@ namespace AspNetCoreBackend.Repositories
     {
         private const string CONFIG_NAME = AppLinq2DBSettings.DEFAULT_CONFIGURATION;
 
-        public abstract T Read(K id);
+        public abstract T FindById(K id);
+
+        public abstract IList<T> FindAll();
 
         protected T QueryForObject(Func<LinqToDbDataContext, T> function)
         {
@@ -20,7 +22,7 @@ namespace AspNetCoreBackend.Repositories
             }
         }
 
-        protected IEnumerable<T> QueryForEnumerable(Func<LinqToDbDataContext, IEnumerable<T>> function)
+        protected IList<T> QueryForList(Func<LinqToDbDataContext, IList<T>> function)
         {
             using (var db = new LinqToDbDataContext(CONFIG_NAME))
             {
@@ -28,7 +30,7 @@ namespace AspNetCoreBackend.Repositories
             }
         }
 
-        public K Create(T entity)
+        public K Insert(T entity)
         {
             using (var db = new LinqToDbDataContext(CONFIG_NAME))
             {
@@ -52,5 +54,6 @@ namespace AspNetCoreBackend.Repositories
                 db.Update<T>(entity);
             }
         }
+
     }
 }

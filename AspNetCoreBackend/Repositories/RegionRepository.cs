@@ -7,7 +7,7 @@ namespace AspNetCoreBackend.Repositories
 {
     public class RegionRepository : BaseLinqToDBRepository<Region, long>
     {
-        public override Region Read(long id)
+        public override Region FindById(long id)
         {
             return QueryForObject(db =>
             {
@@ -16,13 +16,13 @@ namespace AspNetCoreBackend.Repositories
             });
         }
 
-        public IEnumerable<Region> FindAll()
+        public override IList<Region> FindAll()
         {
-            return QueryForEnumerable(db => {
+            return QueryForList(db =>
+            {
                 var query = from r in db.Regiones select r;
                 return query.ToList();
             });
         }
-
     }
 }

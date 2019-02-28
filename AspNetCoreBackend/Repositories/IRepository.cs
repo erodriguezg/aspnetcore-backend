@@ -1,11 +1,13 @@
 ﻿using AspNetCoreBackend.Entities;
+using System.Collections.Generic;
 
 namespace AspNetCoreBackend.Repositories
 {
-    public interface IRepository<T, K> where T : IBaseEntity 
+    public interface IRepository<T, K> where T : IBaseEntity
     {
-        K Create(T entity);
-        T Read(K id);
+        T FindById(K id);
+        IList<T> FindAll();
+        K Insert(T entity);
         void Update(T entity);
         bool Delete(T entity);
     }
