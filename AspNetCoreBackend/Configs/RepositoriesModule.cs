@@ -9,6 +9,7 @@ namespace AspNetCoreBackend.Configs
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<RegionRepository>().AsSelf().As<IRepository<Region, long>>();
+            builder.RegisterType<ProvinciaRepository>().AsSelf().As<IRepository<Provincia, long>>();
         }
     }
 }

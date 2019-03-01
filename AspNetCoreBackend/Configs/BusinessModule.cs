@@ -8,6 +8,7 @@ namespace AspNetCoreBackend.Configs
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<RegionBusiness>().AsSelf();
+            builder.RegisterType<ProvinciaBusiness>().AsSelf();
         }
     }
 }
