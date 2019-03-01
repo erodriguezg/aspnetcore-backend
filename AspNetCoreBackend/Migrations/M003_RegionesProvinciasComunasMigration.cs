@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using System;
 
 namespace AspNetCoreBackend.Migrations
 {
@@ -12,7 +13,7 @@ namespace AspNetCoreBackend.Migrations
 
         public override void Down()
         {
-            Execute.EmbeddedScript("M003_RegionesProvinciasComunas_Down.sql");
+            throw new NotImplementedException();
         }
         
     }

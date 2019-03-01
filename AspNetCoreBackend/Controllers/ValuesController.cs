@@ -1,6 +1,7 @@
-﻿using AspNetCoreBackend.Entities;
-using AspNetCoreBackend.Repositories;
+﻿using AspNetCoreBackend.Business;
+using AspNetCoreBackend.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
@@ -10,12 +11,22 @@ namespace AspNetCoreBackend.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        private readonly RegionBusiness _regionBusiness;
+        private readonly ILogger<ValuesController> _logger;
+
+        public ValuesController(RegionBusiness regionBusiness, ILogger<ValuesController> logger)
+        {
+            _regionBusiness = regionBusiness;
+            _logger = logger;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Region>> Get()
+        public ActionResult<List<Region>> Get()
         {
-            RegionRepository regionRepository = new RegionRepository();
-            var regiones = regionRepository.FindAll();
+            _logger.LogDebug("Soy el Log del Index!");
+            var regiones = _regionBusiness.FindAllRegions();
             return Ok(regiones);
         }
 

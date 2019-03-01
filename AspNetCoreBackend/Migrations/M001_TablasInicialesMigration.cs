@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using System;
 
 namespace AspNetCoreBackend.Migrations
 {
@@ -13,9 +14,8 @@ namespace AspNetCoreBackend.Migrations
 
         public override void Down()
         {
-            Execute.EmbeddedScript("M001_TablasIniciales_Down.sql");
+            throw new NotImplementedException();
         }
-
         
     }
 }
